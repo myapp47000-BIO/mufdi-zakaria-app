@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f2a1d">
+<meta name="description" content="تطبيق تعليمي عن شاعر الثورة الجزائرية مفدي زكريا: سيرته، قصائده، صوره، ووثائقياته">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-title" content="مفدي زكريا">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>تطبيق شاعر الثورة مفدي زكريا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f7f3ea;--card:#ffffff;--ink:#1d2a22;--muted:#5d6b62;--green:#0f5b3a;--green2:#0f2a1d;--red:#b3222d;--gold:#b98a2e;--line:#e4dccb;--chip:#efe7d4;
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0e1a14;--card:#16261d;--ink:#eee8d8;--muted:#a9b5ab;--green:#39b07a;--green2:#08130d;--line:#2a3d32;--chip:#1f3328;--gold:#d9ae55;--red:#e0555f}
+}
+:root[data-theme="dark"]{--bg:#0e1a14;--card:#16261d;--ink:#eee8d8;--muted:#a9b5ab;--green:#39b07a;--green2:#08130d;--line:#2a3d32;--chip:#1f3328;--gold:#d9ae55;--red:#e0555f}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',Tahoma,Arial,sans-serif;line-height:1.9;font-size:16px}
+h1,h2,h3{font-family:'Amiri','Traditional Arabic',serif;margin:0}
+.hero{background:linear-gradient(160deg,var(--green2),#0f5b3a 70%);color:#fff;text-align:center;padding:22px 16px 26px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:auto 0 0 0;height:6px;background:linear-gradient(90deg,#fff 0 33%,var(--red) 33% 66%,#0f5b3a 66%)}
+.portrait{width:128px;height:128px;border-radius:50%;border:4px solid var(--gold);margin:0 auto 10px;background:#1b3d2c;overflow:hidden;display:block}
+.portrait img,.portrait svg{width:100%;height:100%;object-fit:cover;display:block}
+.hero h1{font-size:clamp(24px,6vw,36px);line-height:1.5}
+.hero p{margin:4px 0 0;opacity:.9;font-size:15px}
+.hero .tools{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+button,.btn{font-family:inherit;font-size:14px;cursor:pointer;border:0;border-radius:999px;padding:8px 16px;background:var(--gold);color:#1d1503;font-weight:700;text-decoration:none;display:inline-block}
+button.ghost,.btn.ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--card);border-bottom:1px solid var(--line);display:flex;overflow-x:auto;gap:6px;padding:8px 10px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{background:var(--chip);color:var(--ink);white-space:nowrap;font-weight:600;padding:6px 14px}
+nav button.on{background:var(--green);color:#fff}
+main{max-width:860px;margin:0 auto;padding:16px}
+section{display:none;animation:f .3s}
+section.on{display:block}
+@keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+h2{font-size:28px;color:var(--green);margin:6px 0 12px;border-bottom:2px solid var(--gold);display:inline-block;padding-bottom:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 12px}
+.card h3{font-size:21px;color:var(--green);margin-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.fact{background:var(--chip);border-radius:12px;padding:10px;text-align:center}
+.fact b{display:block;color:var(--green);font-size:13px}
+.fact span{font-size:15px;font-weight:700}
+.tl{position:relative;padding-inline-start:22px;border-inline-start:3px solid var(--gold);margin-inline-start:6px}
+.tl .it{position:relative;margin-bottom:14px}
+.tl .it:before{content:"";position:absolute;inset-inline-start:-30px;top:8px;width:13px;height:13px;border-radius:50%;background:var(--red);border:2px solid var(--bg)}
+.tl .y{font-weight:700;color:var(--red)}
+.note{font-size:13px;color:var(--muted);background:var(--chip);border-radius:10px;padding:8px 12px;margin:10px 0}
+.tag{display:inline-block;background:var(--chip);border-radius:999px;padding:0 10px;font-size:12px;margin-inline-end:4px;color:var(--muted)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.gal figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative}
+.gal img,.gal svg.ph{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:zoom-in}
+.gal figcaption{font-size:12px;padding:6px 8px;color:var(--muted)}
+.gal .del{position:absolute;top:4px;inset-inline-start:4px;background:rgba(0,0,0,.6);color:#fff;padding:0 8px;font-size:16px}
+.audio{display:flex;flex-direction:column;gap:6px}
+.audio audio{width:100%}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.q{font-weight:700;margin-bottom:6px}
+.opt{display:block;width:100%;text-align:start;background:var(--chip);color:var(--ink);border-radius:10px;margin:5px 0;font-weight:600}
+.opt.ok{background:#1f8a54;color:#fff}.opt.no{background:var(--red);color:#fff}
+.share{text-align:center}
+#qr{display:inline-block;background:#fff;padding:12px;border-radius:12px;margin:10px 0}
+.link{direction:ltr;word-break:break-all;background:var(--chip);padding:8px;border-radius:8px;font-size:13px;text-align:left}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:50}
+#lb.on{display:flex}#lb img{max-width:96%;max-height:92%;border-radius:8px}
+#toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:#000c;color:#fff;padding:8px 18px;border-radius:999px;font-size:14px;display:none;z-index:60}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:18px 14px 28px}
+.big{font-family:'Amiri',serif;font-size:19px;color:var(--green);border-inline-start:4px solid var(--gold);padding:4px 12px;margin:10px 0;background:var(--chip);border-radius:8px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="portrait" id="portrait"></div>
+  <h1>تطبيق شاعر الثورة مفدي زكريا</h1>
+  <p>صاحب نشيد «قسماً» · 1908 – 1977</p>
+  <div class="tools">
+    <button id="btnInstall">⬇ تثبيت التطبيق</button>
+    <button class="ghost" id="btnShare">↗ مشاركة</button>
+    <button class="ghost" id="btnTheme">◐ الوضع</button>
+  </div>
+</header>
+
+<nav id="nav"></nav>
+
+<main>
+
+<section id="intro" class="on">
+  <h2>نبذة عن حياته</h2>
+  <div class="facts">
+    <div class="fact"><b>الاسم</b><span>زكريا بن سليمان</span></div>
+    <div class="fact"><b>الميلاد</b><span>12 جوان 1908</span></div>
+    <div class="fact"><b>مكان الميلاد</b><span>بني يزقن، غرداية</span></div>
+    <div class="fact"><b>الوفاة</b><span>17 أوت 1977</span></div>
+    <div class="fact"><b>لقبه</b><span>شاعر الثورة</span></div>
+  </div>
+  <div class="card">
+    <p>مفدي زكريا شاعر جزائري من إقليم وادي ميزاب، وُلد في مدينة بني يزقن بولاية غرداية. اشتهر بأنه صوت الثورة التحريرية الجزائرية، وارتبط اسمه بنشيد «قسماً» الذي صار النشيد الوطني للجزائر المستقلة. و«مفدي» اسم أدبي اختاره لنفسه، ومعناه الذي يفدي وطنه.</p>
+    <p>جمع في شعره بين الجزالة الكلاسيكية وروح الملحمة والحماسة، وكان شعره سلاحاً في معركة الهوية والاستقلال، فعُرف بالشاعر الذي «سُجن وشُرّد من أجل كلمته».</p>
+  </div>
+  <div class="big">«الشعر عند مفدي موقف قبل أن يكون فناً»</div>
+  <div class="note">ملاحظة: تختلف بعض التواريخ والتفاصيل الدقيقة بين المصادر؛ يُنصح بمراجعة الكتب والمراجع الموثوقة عند البحث الأكاديمي.</div>
+</section>
+
+<section id="edu">
+  <h2>نشأته وتعليمه</h2>
+  <div class="tl">
+    <div class="it card"><span class="y">الطفولة</span><h3>الكُتّاب وحفظ القرآن</h3><p>بدأ تعليمه في مسقط رأسه بني يزقن، فتعلم القرآن الكريم ومبادئ اللغة العربية والعلوم الدينية على يد شيوخ المنطقة.</p></div>
+    <div class="it card"><span class="y">العشرينيات</span><h3>الانتقال إلى الشمال ثم تونس</h3><p>تنقل بين مدن جزائرية قبل أن يتوجه إلى تونس طلباً للعلم، حيث درس في المدرسة الخلدونية ثم جامع الزيتونة، وتعمّق في الأدب العربي والشعر القديم.</p></div>
+    <div class="it card"><span class="y">أثر التكوين</span><h3>تأثره بروّاد الإصلاح</h3><p>عاش أجواء الحركة الوطنية والإصلاحية في تونس والجزائر، فتشكل وعيه القومي والأدبي، وبرزت موهبته الشعرية مبكراً.</p></div>
+  </div>
+</section>
+
+<section id="work">
+  <h2>حياته العملية</h2>
+  <div class="card"><h3>الصحافة والكتابة</h3><p>كتب في عدد من الصحف والمجلات الوطنية والعربية، ونشر مقالاته وقصائده، وكانت الصحافة منبره الأول للتعريف بقضايا الجزائر.</p></div>
+  <div class="card"><h3>الطباعة والنشر</h3><p>اشتغل في مجال الطباعة والنشر، وكان له دور في طبع ونشر الأعمال الأدبية والوطنية في فترات من حياته.</p></div>
+  <div class="card"><h3>بعد الاستقلال</h3><p>عاد إلى الجزائر المستقلة، وواصل الكتابة، وأنجز ملحمته الكبرى «إلياذة الجزائر» التي خلّد فيها تاريخ البلاد وجغرافيتها وأمجادها.</p></div>
+</section>
+
+<section id="act">
+  <h2>نشاطه السياسي والثقافي والثوري</h2>
+  <div class="tl">
+    <div class="it card"><span class="y">الثلاثينيات</span><h3>الانخراط في الحركة الوطنية</h3><p>التحق بالحركة الوطنية المطالبة بالاستقلال: نجم شمال إفريقيا ثم حزب الشعب الجزائري، وكتب أناشيد حماسية للحزب.</p></div>
+    <div class="it card"><span class="y">1937 وما بعدها</span><h3>السجن والملاحقة</h3><p>تعرض للاعتقال أكثر من مرة بسبب نشاطه السياسي وكتاباته، وتعرّض للتضييق على حريته.</p></div>
+    <div class="it card"><span class="y">1954 – 1962</span><h3>مع الثورة التحريرية</h3><p>انضم إلى صفوف جبهة التحرير الوطني، وأصبح لسانها الشعري في الداخل والخارج. كتب «قسماً» عام 1955 في سجن بربروس (سركاجي) بالعاصمة، ثم لحّنها الموسيقار المصري محمد فوزي.</p></div>
+    <div class="it card"><span class="y">أثناء الثورة</span><h3>المنفى والنضال بالكلمة</h3><p>تنقل بين المغرب وتونس وبلدان عربية أخرى، وكان يدافع عن القضية الجزائرية في المحافل بشعره.</p></div>
+    <div class="it card"><span class="y">1963</span><h3>نشيد وطني</h3><p>اعتُمد «قسماً» نشيداً وطنياً للجزائر المستقلة.</p></div>
+  </div>
+</section>
+
+<section id="books">
+  <h2>مؤلفاته وأشعاره</h2>
+  <div class="grid">
+    <div class="card"><h3>اللهب المقدس</h3><p>ديوانه الأشهر في الثورة، جمع فيه قصائد الكفاح والمنفى والسجن والبطولة.</p></div>
+    <div class="card"><h3>تحت ظلال الزيتون</h3><p>ديوان يضم قصائد من مرحلة مبكرة ومن مراحل الحركة الوطنية.</p></div>
+    <div class="card"><h3>من وحي الأطلس</h3><p>ديوان يجمع قصائد في الوطن والطبيعة والتاريخ.</p></div>
+    <div class="card"><h3>إلياذة الجزائر</h3><p>ملحمة شعرية طويلة، نظمها بعد الاستقلال، تسرد تاريخ الجزائر عبر العصور.</p></div>
+  </div>
+  <div class="card"><h3>خصائص شعره</h3>
+    <p><span class="tag">الفصحى الجزلة</span><span class="tag">الروح الملحمية</span><span class="tag">الاعتزاز بالهوية</span><span class="tag">شعر المناسبات الوطنية</span><span class="tag">الالتزام الثوري</span></p>
+    <p>اتبع عمود الشعر العربي وأوزانه، وزاوج بين الأسلوب الكلاسيكي والموضوعات الجديدة كالثورة والشهداء والمقاومة.</p></div>
+  <div class="note">تُذكر عناوين الدواوين هنا للتعريف، وقد تتفاوت سنوات الطبعات بين الدور والمصادر.</div>
+</section>
+
+<section id="death">
+  <h2>وفاته</h2>
+  <div class="card"><p>توفي مفدي زكريا يوم 17 أوت 1977 بتونس، ونُقل جثمانه إلى الجزائر ودُفن في مسقط رأسه بني يزقن. رحل بعد أن شهد تحقق حلمه بالاستقلال، وبقي نشيده يُردَّد في كل مناسبة وطنية.</p>
+  <p>تحمل اليوم مدارس وشوارع ومؤسسات ثقافية في الجزائر اسمه، ويُحيى ذكراه كل عام في الملتقيات الأدبية.</p></div>
+</section>
+
+<section id="poems">
+  <h2>القصائد المشهورة</h2>
+  <div class="note">تنبيه حقوقي: أشعار مفدي زكريا ما زالت محمية بحقوق التأليف، لذلك لا يُدرج التطبيق نصوصها كاملة، بل يقدّم تعريفاً بكل عمل وسياقه، مع زر للبحث عن النص في المصادر والدواوين الرسمية.</div>
+  <div id="poemList"></div>
+</section>
+
+<section id="gallery">
+  <h2>ألبوم الصور</h2>
+  <div class="note">أضف صورك من جهازك (صور الشاعر، المخطوطات، الأغلفة، الأماكن). تُحفظ داخل متصفحك على هذا الجهاز فقط.</div>
+  <div class="row" style="margin-bottom:10px">
+    <button id="addPhoto">＋ إضافة صور</button>
+    <input type="file" id="photoIn" accept="image/*" multiple hidden>
+    <button class="ghost" id="setPortrait" style="color:var(--green)">اجعل أول صورة هي صورة الواجهة</button>
+  </div>
+  <div class="gal" id="galGrid"></div>
+</section>
+
+<section id="audio">
+  <h2>المقاطع الصوتية</h2>
+  <div class="note">أضف ملف MP3 لكل قصيدة من جهازك (إنشاد، إلقاء، أداء النشيد). تُحفظ محلياً داخل المتصفح.</div>
+  <div id="audioList"></div>
+</section>
+
+<section id="videos">
+  <h2>أفلام وثائقية</h2>
+  <div class="note">تفتح البطاقات نتائج البحث في يوتيوب في نافذة جديدة.</div>
+  <div class="grid" id="vidList"></div>
+</section>
+
+<section id="quiz">
+  <h2>اختبر معلوماتك</h2>
+  <div id="quizBox"></div>
+</section>
+
+<section id="shareSec">
+  <h2>التثبيت والمشاركة</h2>
+  <div class="card share">
+    <h3>رابط التطبيق</h3>
+    <div class="link" id="lnk"></div>
+    <div class="row" style="justify-content:center;margin-top:8px">
+      <button id="copy">نسخ الرابط</button>
+      <button class="ghost" id="share2" style="color:var(--green)">مشاركة</button>
+    </div>
+    <div id="qr"></div>
+    <div><button class="ghost" id="dlQr" style="color:var(--green)">تنزيل رمز QR</button></div>
+  </div>
+  <div class="card">
+    <h3>طريقة تثبيت التطبيق على الهاتف</h3>
+    <p><b>أندرويد (Chrome):</b> اضغط زر «تثبيت التطبيق» أو القائمة ⋮ ثم «تثبيت التطبيق / إضافة إلى الشاشة الرئيسية».</p>
+    <p><b>آيفون (Safari):</b> اضغط زر المشاركة ⬆ ثم «إضافة إلى الشاشة الرئيسية».</p>
+  </div>
+</section>
+
+</main>
+
+<footer>تطبيق تعليمي عن شاعر الثورة الجزائرية مفدي زكريا<br>رحمه الله · المجد والخلود لشهدائنا الأبرار</footer>
+
+<div id="lb"><img alt=""></div>
+<div id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2200)};
+
+/* ---------- Portrait placeholder (SVG) ---------- */
+const PORTRAIT_SVG='<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" fill="#1b3d2c"/><circle cx="60" cy="46" r="22" fill="#e8c9a0"/><path d="M36 44c2-18 14-26 26-24 12 2 20 12 20 26-4-8-10-12-22-12-12 0-20 4-24 10z" fill="#f2f2f2"/><path d="M24 120c2-26 16-38 36-38s34 12 36 38z" fill="#f2f2f2"/><path d="M60 82l-8 14 8 24 8-24z" fill="#b3222d"/><circle cx="52" cy="48" r="2" fill="#333"/><circle cx="68" cy="48" r="2" fill="#333"/><path d="M52 58q8 5 16 0" stroke="#7a4a2a" stroke-width="2" fill="none"/></svg>';
+function setPortrait(src){$('#portrait').innerHTML=src?'<img alt="مفدي زكريا" src="'+src+'">':PORTRAIT_SVG}
+setPortrait(null);
+
+/* ---------- Theme ---------- */
+try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+$('#btnTheme').onclick=()=>{
+  const cur=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  const n=cur==='dark'?'light':'dark';document.documentElement.dataset.theme=n;
+  try{localStorage.setItem('theme',n)}catch(e){}
+};
+
+/* ---------- Navigation ---------- */
+const tabs=[['intro','نبذة'],['edu','التعليم'],['work','الحياة العملية'],['act','النشاط'],['books','المؤلفات'],['death','الوفاة'],['poems','القصائد'],['gallery','الصور'],['audio','الصوتيات'],['videos','الوثائقيات'],['quiz','اختبار'],['shareSec','تثبيت ومشاركة']];
+const nav=$('#nav');
+tabs.forEach(([id,t])=>{const b=document.createElement('button');b.textContent=t;b.dataset.id=id;b.onclick=()=>go(id);nav.appendChild(b)});
+function go(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));
+  nav.querySelectorAll('button').forEach(b=>{const on=b.dataset.id===id;b.classList.toggle('on',on);if(on)b.scrollIntoView({inline:'center',block:'nearest'})});
+  window.scrollTo({top:0});
+  try{history.replaceState(null,'','#'+id)}catch(e){}
+}
+go((location.hash||'#intro').slice(1).match(/^[a-zA-Z]+$/)&&document.getElementById(location.hash.slice(1))?location.hash.slice(1):'intro');
+
+/* ---------- Poems (no full text; info only) ---------- */
+const poems=[
+ {t:'قسماً (النشيد الوطني الجزائري)',y:'1955',d:'كتبها في سجن بربروس بالعاصمة الجزائرية، ولحّنها الموسيقار المصري محمد فوزي. اعتُمدت نشيداً وطنياً بعد الاستقلال. تعبّر عن العهد على التضحية في سبيل الوطن، وتستحضر الثورة والشهداء والبارود.',k:'النشيد الوطني'},
+ {t:'إلياذة الجزائر',y:'1972',d:'ملحمة شعرية طويلة تسير على نهج الملاحم الكبرى، تروي تاريخ الجزائر وجغرافيتها وأبطالها وحضاراتها عبر العصور، وقد قُسمت إلى أناشيد متتابعة.',k:'إلياذة الجزائر'},
+ {t:'الذبيح الصاعد',y:'1956',d:'قصيدة رثاء في الشهيد أحمد زبانة، أول من أُعدم بالمقصلة في الثورة التحريرية. تُعد من أشهر قصائد الرثاء الثوري في الأدب الجزائري.',k:'الذبيح الصاعد'},
+ {t:'ديوان اللهب المقدس',y:'ستينيات القرن العشرين',d:'أشهر دواوينه، يضم قصائد الثورة والسجن والمنفى والبطولة، ويُعد وثيقة أدبية لمرحلة الكفاح.',k:'اللهب المقدس'},
+ {t:'قصائد من «تحت ظلال الزيتون»',y:'—',d:'مختارات من مراحل مبكرة ومن زمن الحركة الوطنية، تظهر فيها نبرة الاعتزاز بالهوية والأرض.',k:'تحت ظلال الزيتون'}
+];
+$('#poemList').innerHTML=poems.map(p=>`<div class="card"><h3>${p.t}</h3><span class="tag">${p.y}</span><p>${p.d}</p><a class="btn ghost" style="color:var(--green)" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('مفدي زكريا '+p.k+' نص القصيدة')}">ابحث عن النص في المصادر</a></div>`).join('');
+
+/* ---------- Videos (search links) ---------- */
+const vids=[['وثائقي: مفدي زكريا شاعر الثورة','وثائقي مفدي زكريا شاعر الثورة'],['حياة الشاعر مفدي زكريا','مفدي زكريا حياته وسيرته'],['قصة نشيد قسماً','قصة كتابة نشيد قسما مفدي زكريا'],['إلياذة الجزائر','إلياذة الجزائر مفدي زكريا'],['شهادات عن مفدي زكريا','شهادات عن الشاعر مفدي زكريا']];
+$('#vidList').innerHTML=vids.map(v=>`<div class="card"><h3>▶ ${v[0]}</h3><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v[1])}">مشاهدة على يوتيوب</a></div>`).join('');
+
+/* ---------- IndexedDB for user media ---------- */
+let dbp=null;
+function db(){
+  if(dbp)return dbp;
+  dbp=new Promise((res,rej)=>{
+    try{const r=indexedDB.open('mufdi',1);
+      r.onupgradeneeded=()=>{const d=r.result;d.createObjectStore('photos',{keyPath:'id',autoIncrement:true});d.createObjectStore('audio',{keyPath:'key'})};
+      r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}
+  });return dbp;
+}
+async function tx(store,mode,fn){const d=await db();return new Promise((res,rej)=>{const t=d.transaction(store,mode);const s=t.objectStore(store);const r=fn(s);t.oncomplete=()=>res(r&&r.result);t.onerror=()=>rej(t.error)})}
+
+/* ---------- Gallery ---------- */
+let blobURLs=[];
+async function renderGallery(){
+  const g=$('#galGrid');blobURLs.forEach(URL.revokeObjectURL);blobURLs=[];
+  let list=[];try{list=await tx('photos','readonly',s=>s.getAll())||[]}catch(e){}
+  if(!list.length){
+    g.innerHTML=['من وادي ميزاب','في المنفى','مع الأدباء','مخطوطة قصيدة','غلاف ديوان','إلقاء الشعر'].map(c=>`<figure><svg class="ph" viewBox="0 0 100 100"><rect width="100" height="100" fill="#d9cfb7"/><text x="50" y="56" text-anchor="middle" font-size="30" fill="#8a7a50">🖼</text></svg><figcaption>${c} — مكان للصورة</figcaption></figure>`).join('');return;
+  }
+  g.innerHTML='';
+  list.forEach(p=>{
+    const u=URL.createObjectURL(p.blob);blobURLs.push(u);
+    const f=document.createElement('figure');
+    f.innerHTML=`<img alt="" src="${u}"><button class="del" title="حذف">×</button><figcaption>${(p.name||'').replace(/[<>]/g,'')}</figcaption>`;
+    f.querySelector('img').onclick=()=>{$('#lb img').src=u;$('#lb').classList.add('on')};
+    f.querySelector('.del').onclick=async()=>{try{await tx('photos','readwrite',s=>s.delete(p.id))}catch(e){}renderGallery();loadPortrait()};
+    g.appendChild(f);
+  });
+}
+$('#lb').onclick=()=>$('#lb').classList.remove('on');
+$('#addPhoto').onclick=()=>$('#photoIn').click();
+$('#photoIn').onchange=async e=>{
+  for(const f of e.target.files){try{await tx('photos','readwrite',s=>s.add({blob:f,name:f.name}))}catch(err){toast('تعذّر الحفظ على هذا المتصفح')}}
+  e.target.value='';renderGallery();loadPortrait();toast('تمت إضافة الصور');
+};
+let portraitURL=null;
+async function loadPortrait(){
+  try{const l=await tx('photos','readonly',s=>s.getAll())||[];
+    if(portraitURL)URL.revokeObjectURL(portraitURL);
+    const pick=l.find(x=>x.portrait);
+    if(pick){portraitURL=URL.createObjectURL(pick.blob);setPortrait(portraitURL)}else setPortrait(null)}catch(e){}
+}
+$('#setPortrait').onclick=async()=>{
+  try{const l=await tx('photos','readonly',s=>s.getAll())||[];
+    if(!l.length){toast('أضف صورة أولاً');return}
+    for(const p of l){p.portrait=(p===l[0]);await tx('photos','readwrite',s=>s.put(p))}
+    loadPortrait();toast('تم تعيين صورة الواجهة');
+  }catch(e){toast('تعذّر الحفظ')}
+};
+
+/* ---------- Audio ---------- */
+const tracks=['قسماً','إلياذة الجزائر','الذبيح الصاعد','من جبالنا','قصيدة أخرى من اختيارك'];
+let audioURLs=[];
+async function renderAudio(){
+  audioURLs.forEach(URL.revokeObjectURL);audioURLs=[];
+  const box=$('#audioList');box.innerHTML='';
+  for(const name of tracks){
+    let rec=null;try{rec=await tx('audio','readonly',s=>s.get(name))}catch(e){}
+    const c=document.createElement('div');c.className='card audio';
+    c.innerHTML=`<h3>🎧 ${name}</h3>`;
+    if(rec&&rec.blob){const u=URL.createObjectURL(rec.blob);audioURLs.push(u);
+      const a=document.createElement('audio');a.controls=true;a.src=u;a.preload='none';c.appendChild(a)}
+    else{const p=document.createElement('div');p.className='note';p.textContent='لم يُضَف ملف صوتي بعد';c.appendChild(p)}
+    const r=document.createElement('div');r.className='row';
+    const inp=document.createElement('input');inp.type='file';inp.accept='audio/mpeg,audio/mp3,audio/*';inp.hidden=true;
+    const b=document.createElement('button');b.textContent=rec?'استبدال الملف':'＋ إضافة ملف MP3';b.onclick=()=>inp.click();
+    inp.onchange=async()=>{const f=inp.files[0];if(!f)return;try{await tx('audio','readwrite',s=>s.put({key:name,blob:f}));renderAudio();toast('تم الحفظ')}catch(e){toast('تعذّر الحفظ')}};
+    r.append(b,inp);
+    if(rec){const d=document.createElement('button');d.className='ghost';d.style.color='var(--red)';d.textContent='حذف';d.onclick=async()=>{try{await tx('audio','readwrite',s=>s.delete(name))}catch(e){}renderAudio()};r.appendChild(d)}
+    c.appendChild(r);box.appendChild(c);
+  }
+}
+
+/* ---------- Quiz ---------- */
+const Q=[
+ ['في أي مدينة وُلد مفدي زكريا؟',['بني يزقن (غرداية)','قسنطينة','تلمسان','عنابة'],0],
+ ['ما أشهر ما كتب مفدي زكريا من أناشيد؟',['من جبالنا','قسماً','نشيد الأمير','حيّ على الجهاد'],1],
+ ['أين كتب نشيد «قسماً» عام 1955؟',['في تونس','في سجن بربروس','في القاهرة','في باريس'],1],
+ ['من لحّن نشيد «قسماً»؟',['محمد فوزي','محمد عبد الوهاب','فريد الأطرش','رياض السنباطي'],0],
+ ['ما اسم ملحمته الشعرية الكبرى بعد الاستقلال؟',['اللهب المقدس','إلياذة الجزائر','تحت ظلال الزيتون','من وحي الأطلس'],1],
+ ['أين دُفن مفدي زكريا؟',['الجزائر العاصمة','وهران','بني يزقن','تونس'],2],
+ ['ما اللقب الذي اشتهر به؟',['أمير الشعراء','شاعر الثورة','شاعر النيل','شاعر القطرين'],1]
+];
+let qi=0,sc=0;
+function renderQ(){
+  const b=$('#quizBox');
+  if(qi>=Q.length){b.innerHTML=`<div class="card"><h3>النتيجة: ${sc} من ${Q.length}</h3><p>${sc>=6?'ممتاز! أنت تعرف شاعر الثورة جيداً 🇩🇿':sc>=4?'جيد، راجع بعض الأقسام وأعد المحاولة':'راجع أقسام التطبيق ثم حاول مجدداً'}</p><button id="again">إعادة الاختبار</button></div>`;
+    $('#again').onclick=()=>{qi=0;sc=0;renderQ()};return}
+  const [q,o,a]=Q[qi];
+  b.innerHTML=`<div class="card"><div class="tag">السؤال ${qi+1} / ${Q.length}</div><div class="q">${q}</div></div>`;
+  const c=b.firstChild;let done=false;
+  o.forEach((t,i)=>{const x=document.createElement('button');x.className='opt';x.textContent=t;
+    x.onclick=()=>{if(done)return;done=true;if(i===a){sc++;x.classList.add('ok')}else{x.classList.add('no');c.querySelectorAll('.opt')[a].classList.add('ok')}
+      const n=document.createElement('button');n.textContent=qi===Q.length-1?'عرض النتيجة':'السؤال التالي';n.style.marginTop='8px';n.onclick=()=>{qi++;renderQ()};c.appendChild(n)};
+    c.appendChild(x)});
+}
+
+/* ---------- Share / QR / Install ---------- */
+const url=location.href.split('#')[0];
+$('#lnk').textContent=url;
+try{new QRCode($('#qr'),{text:url,width:200,height:200,colorDark:'#0f2a1d',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){$('#qr').textContent='تعذّر إنشاء الرمز'}
+async function doShare(){
+  const d={title:'تطبيق شاعر الثورة مفدي زكريا',text:'تعرّف على شاعر الثورة الجزائرية مفدي زكريا',url};
+  if(navigator.share){try{await navigator.share(d)}catch(e){}}
+  else{try{await navigator.clipboard.writeText(url);toast('تم نسخ الرابط')}catch(e){go('shareSec')}}
+}
+$('#btnShare').onclick=doShare;$('#share2').onclick=doShare;
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(url);toast('تم نسخ الرابط')}catch(e){toast('انسخ الرابط يدوياً')}};
+$('#dlQr').onclick=()=>{
+  const c=$('#qr canvas'),i=$('#qr img');const src=c?c.toDataURL('image/png'):(i&&i.src);
+  if(!src){toast('غير متاح');return}
+  const a=document.createElement('a');a.href=src;a.download='mufdi-zakaria-qr.png';a.click();
+};
+
+let deferred=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e});
+addEventListener('appinstalled',()=>{toast('تم تثبيت التطبيق ✓');deferred=null});
+$('#btnInstall').onclick=async()=>{
+  if(deferred){deferred.prompt();await deferred.userChoice;deferred=null}
+  else if(matchMedia('(display-mode: standalone)').matches){toast('التطبيق مثبّت بالفعل')}
+  else go('shareSec');
+};
+
+/* ---------- Service Worker ---------- */
+if('serviceWorker' in navigator){
+  addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})});
+}
+
+renderGallery();renderAudio();renderQ();loadPortrait();
+})();
+</script>
+</body>
+</html>
