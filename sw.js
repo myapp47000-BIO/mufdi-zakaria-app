@@ -1,5 +1,5 @@
 // عدّل رقم الإصدار عند كل تحديث للتطبيق ليُحدَّث الكاش
-const VERSION = 'mufdi-v5';
+const VERSION = 'mufdi-v6';
 const CORE = [
   './', './index.html', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png'
@@ -20,6 +20,8 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
+  // لا نخزّن الصوت/الفيديو (طلبات Range)
+  if (req.destination === 'audio' || req.destination === 'video' || req.headers.has('range')) return;
   const url = new URL(req.url);
 
   // يوتيوب وروابط البحث: مباشرة من الشبكة
