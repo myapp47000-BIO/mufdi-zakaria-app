@@ -133,6 +133,7 @@ nav .mnu{position:sticky;inset-inline-start:0;z-index:2;background:var(--green);
 .mi .ic{width:26px;text-align:center;font-size:18px}
 .mi.act{color:var(--green)}
 .msep{font-size:12px;color:var(--muted);padding:12px 18px 4px}
+.bigi{display:block;width:calc(100% - 28px);margin:14px 14px 4px;padding:13px 10px;font-size:16px;background:linear-gradient(90deg,#b3222d,#d4333f);color:#fff;border-radius:14px;box-shadow:0 3px 10px rgba(179,34,45,.4);animation:pul 2.4s infinite}
 #instModal{position:fixed;inset:0;z-index:130;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px}
 #instModal.on{display:flex}
 #instModal .box{background:var(--card);border-radius:16px;padding:18px;max-width:420px;width:100%;border:2px solid var(--gold)}
@@ -272,6 +273,7 @@ ar:{
  audNote:'أضف ملف MP3 لكل قصيدة من جهازك (إنشاد، إلقاء، أداء النشيد). تُحفظ محلياً داخل المتصفح.',tracks:['قسماً','إلياذة الجزائر','الذبيح الصاعد','من جبالنا','قصيدة أخرى من اختيارك'],
 
 
+ mBig:'📲 تنزيل التطبيق مباشرة على الهاتف',mFile:'حفظ نسخة من التطبيق (ملف)',t_dl:'جارٍ تنزيل الملف…',t_dlFail:'تعذّر التنزيل من هذه الصفحة؛ استخدم رابط الموقع على GitHub',
  h_teacher:'يوم المعلم — 5 أكتوبر 2026م',menuT:'القائمة',mSec:'الأقسام',mAct:'إجراءات',mClose:'إغلاق',mInstall:'تنزيل التطبيق على الهاتف',mShare:'مشاركة التطبيق',mTheme:'تبديل الوضع (فاتح/داكن)',mAnth:'نشيد قسماً (تشغيل/إيقاف)',
  instTitle:'تنزيل التطبيق على الهاتف',instIOS:'على الآيفون (Safari): اضغط زر المشاركة ⬆ ثم «إضافة إلى الشاشة الرئيسية».',instAnd:'على أندرويد (Chrome): افتح قائمة المتصفح ⋮ ثم «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».',instNote:'إن لم يظهر الخيار، افتح رابط التطبيق مباشرةً في المتصفح (وليس داخل تطبيق آخر).',instGo:'رمز QR والرابط',instClose:'حسناً',
  teacher:{badge:'🍎 يوم المعلم · 5 أكتوبر 2026م',goBtn:'اقرأ كلمة المناسبة',head:'كلمة بمناسبة عيد المعلم واليوم العالمي للمعلم',basmala:'بسم الله الرحمن الرحيم',salat:'والصلاة والسلام على أشرف الأنبياء والمرسلين، سيدنا محمد صلى الله عليه وسلم.',
@@ -327,6 +329,7 @@ fr:{
  audNote:'Ajoutez un fichier MP3 pour chaque poème depuis votre appareil (récitation, chant, hymne). Il est enregistré localement dans le navigateur.',tracks:['Kassaman','L’Iliade de l’Algérie','Le Sacrifié qui monte','Min Jibalina','Un autre poème de votre choix'],
 
 
+ mBig:'📲 Télécharger l’application sur le téléphone',mFile:'Enregistrer une copie (fichier)',t_dl:'Téléchargement du fichier…',t_dlFail:'Téléchargement impossible depuis cette page ; utilisez le lien du site sur GitHub',
  h_teacher:'Journée de l’enseignant — 5 octobre 2026',menuT:'Menu',mSec:'Sections',mAct:'Actions',mClose:'Fermer',mInstall:'Télécharger l’application',mShare:'Partager l’application',mTheme:'Changer de thème (clair/sombre)',mAnth:'Hymne Kassaman (lecture/arrêt)',
  instTitle:'Télécharger l’application sur le téléphone',instIOS:'iPhone (Safari) : appuyez sur le bouton Partager ⬆ puis « Sur l’écran d’accueil ».',instAnd:'Android (Chrome) : ouvrez le menu du navigateur ⋮ puis « Installer l’application » ou « Ajouter à l’écran d’accueil ».',instNote:'Si l’option n’apparaît pas, ouvrez directement le lien de l’application dans le navigateur (et non dans une autre application).',instGo:'QR code et lien',instClose:'D’accord',
  teacher:{badge:'🍎 Journée de l’enseignant · 5 octobre 2026',goBtn:'Lire l’allocution',head:'Allocution à l’occasion de la Fête de l’enseignant et de la Journée mondiale des enseignants',basmala:'Au nom d’Allah, le Tout Miséricordieux, le Très Miséricordieux',salat:'Prière et salut sur le plus noble des prophètes et des envoyés, notre maître Muhammad, paix et bénédiction d’Allah sur lui.',
@@ -571,10 +574,23 @@ async function installApp(){
 }
 function showInstallHelp(){
   const t=T();closeMenu();
-  $('#instBox').innerHTML=`<h3 style="color:var(--green);margin-bottom:6px">${t.instTitle}</h3><p>🍏 ${t.instIOS}</p><p>🤖 ${t.instAnd}</p><div class="note">${t.instNote}</div><div class="row" style="justify-content:center"><button id="imGo">${t.instGo}</button><button class="ghost" id="imX" style="color:var(--green)">${t.instClose}</button></div>`;
+  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const main=ios?`🍏 ${t.instIOS}`:`🤖 ${t.instAnd}`;
+  const other=ios?`<p style="font-size:13px;color:var(--muted)">🤖 ${t.instAnd}</p>`:`<p style="font-size:13px;color:var(--muted)">🍏 ${t.instIOS}</p>`;
+  $('#instBox').innerHTML=`<h3 style="color:var(--green);margin-bottom:6px">${t.instTitle}</h3><p style="font-weight:700">${main}</p>${other}<div class="note">${t.instNote}</div><div class="row" style="justify-content:center"><button id="imGo">${t.instGo}</button><button class="ghost" id="imX" style="color:var(--green)">${t.instClose}</button></div>`;
   $('#instModal').classList.add('on');
   $('#imX').onclick=()=>$('#instModal').classList.remove('on');
   $('#imGo').onclick=()=>{$('#instModal').classList.remove('on');go('shareSec')};
+}
+async function saveCopy(){
+  try{
+    toast(T().t_dl);
+    const r=await fetch(location.href.split('#')[0]);
+    if(!r.ok)throw 0;
+    const b=await r.blob();
+    const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mufdi-zakaria-app.html';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  }catch(e){toast(T().t_dlFail)}
 }
 $('#instModal').onclick=e=>{if(e.target.id==='instModal')$('#instModal').classList.remove('on')};
 if(isStandalone()){$('#btnInstall').style.display='none'}
@@ -588,9 +604,8 @@ function renderMenu(){
   const t=T(),p=$('#dp');if(!p)return;
   const items=ids.map((id,i)=>`<button class="mi ${id===current?'on':''}" data-go="${id}"><span class="ic">${ICONS[id]}</span>${t.nav[i]}</button>`).join('');
   const acts=[];
-  if(!isStandalone())acts.push(['install','📲',t.mInstall]);
-  acts.push(['share','↗',t.mShare],['lang','🌐',t.langBtn],['theme','◐',t.mTheme],['anth','🎵',t.mAnth]);
-  p.innerHTML=`<div class="dh"><button class="x" id="dClose" aria-label="${t.mClose}">✕</button><img alt="" src="${userPortrait||DEFAULT_PHOTO}"><b>${t.title}</b></div><div class="msep">${t.mSec}</div>${items}<div class="msep">${t.mAct}</div>${acts.map(a=>`<button class="mi act" data-act="${a[0]}"><span class="ic">${a[1]}</span>${a[2]}</button>`).join('')}`;
+  acts.push(['share','↗',t.mShare],['lang','🌐',t.langBtn],['theme','◐',t.mTheme],['anth','🎵',t.mAnth],['file','💾',t.mFile]);
+  p.innerHTML=`<div class="dh"><button class="x" id="dClose" aria-label="${t.mClose}">✕</button><img alt="" src="${userPortrait||DEFAULT_PHOTO}"><b>${t.title}</b></div>${isStandalone()?'':`<button class="bigi" id="bigInstall">${t.mBig}</button>`}<div class="msep">${t.mSec}</div>${items}<div class="msep">${t.mAct}</div>${acts.map(a=>`<button class="mi act" data-act="${a[0]}"><span class="ic">${a[1]}</span>${a[2]}</button>`).join('')}`;
   p.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{closeMenu();go(b.dataset.go)});
   p.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{
     const a=b.dataset.act;
@@ -599,8 +614,10 @@ function renderMenu(){
     else if(a==='lang'){closeMenu();toggleLang()}
     else if(a==='theme'){$('#btnTheme').click()}
     else if(a==='anth'){toggleAnthem()}
+    else if(a==='file'){saveCopy()}
   });
   $('#dClose').onclick=closeMenu;
+  const bi=$('#bigInstall');if(bi)bi.onclick=()=>{closeMenu();installApp()};
 }
 
 let speaking=false;
