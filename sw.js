@@ -1,5 +1,5 @@
 // عدّل رقم الإصدار عند كل تحديث للتطبيق ليُحدَّث الكاش
-const VERSION = 'mufdi-v9';
+const VERSION = 'mufdi-v10';
 const CORE = [
   './', './index.html', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png'
